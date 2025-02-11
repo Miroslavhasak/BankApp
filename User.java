@@ -1,23 +1,28 @@
 import java.util.Scanner;
+import javax.swing.JTextArea;
 
 public class User {
   private float balance = 0;
+  private JTextArea textArea;
 
-  User() {
+  User(JTextArea textArea) {
+    this.balance = 0;
+    this.textArea = textArea;
+
     Scanner input = new Scanner(System.in);
-    System.out.println("chcete vas ucet nastavit ako transparentny ? y/n");
+    textArea.append("chcete vas ucet nastavit ako transparentny ? y/n" + "\n");
     String inputString = input.nextLine().trim().toLowerCase();
 
     if (inputString.equals("y")) {
-      System.out.println("ucet je transparentny");
+      textArea.append("ucet je transparentny" + "\n");
     } else if (inputString.equals("n")) {
-      System.out.println("ucet nie je transparentny");
+      textArea.append("ucet nie je transparentny" + "\n");
     }
   }
 
   void deposit(double deposit) {
     balance += deposit;
-    System.out.println("vkladam " + deposit + " eur");
+    textArea.append("vkladam " + deposit + " eur" + "\n");
   }
 
   void withdraw(double withdraw) {
@@ -26,11 +31,12 @@ public class User {
     }
 
     balance -= withdraw;
-    System.out.println("vyberam " + withdraw + " eur");
+    textArea.append("vyberam " + withdraw + " eur" + "\n");
   }
 
-  public String balance() {
-    return "tvoj zostatok na ucte je " + String.format("%.2f", balance);
+  void balance() {
+    //return "tvoj zostatok na ucte je " + String.format("%.2f", balance + "\n");
+    textArea.append("tvoj zostatok na ucte je " + String.format("%.2f", balance) + "\n");
   }
 
   String list() {  // todo mozno pridat parameter kolko poslednych transakcii vypise alebo to dat natvrdo
@@ -44,3 +50,4 @@ public class User {
  * zistit zostatok na ucte
  * uchovavat zoznam vsetkych transakcii pre kazdy ucet napr vklad vyber atd
  */
+// todo buttony pre deposit 5 10 50 100 1000 
