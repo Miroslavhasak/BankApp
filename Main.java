@@ -1,51 +1,30 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Scanner;
 import javax.swing.*;
 public class Main
 {
 	public static void main(String[] args) {
-	  Scanner input = new Scanner(System.in);
-	  JTextArea textArea = new JTextArea();
-	  JScrollPane scrollPane = new JScrollPane(textArea);
-	  User user = new User(textArea);
 
 	  JFrame frame = new JFrame("Miro Bank");
-	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	  frame.setSize(1920,1080);
-	  frame.add(scrollPane);
-	  
-	  textArea.setEditable(false);
-	  frame.setLayout(new FlowLayout());  
-
+	  JTextArea textArea = new JTextArea(10,30);
+	  JScrollPane scrollPane = new JScrollPane(textArea);
+	  JPanel buttonPanel = new JPanel();
 	  JButton yesButton = new JButton("Yes");
 	  JButton noButton = new JButton("No");
 
-	  yesButton.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			textArea.append("stlacil si yes" + "\n");
-		}
-	  });
-
-	  noButton.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			textArea.append("stlacil si no" + "\n");
-		}
-	  });
+	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  frame.setSize(1920,1080);
+	  frame.setLayout(new FlowLayout());  
+	  frame.add(scrollPane);
+	  frame.add(buttonPanel);
 	  
-	  frame.add(yesButton);
-	  frame.add(noButton);
-	  frame.setVisible(true);
+	  textArea.setEditable(false);
+	  
+	  frame.add(new JScrollPane(textArea));
 
-	  user.deposit(5.42);
-	  user.withdraw(5.34);
-	  user.balance();
-	  input.close();
+	  User user = new User(textArea, yesButton, noButton, buttonPanel);
+
+	  frame.setVisible(true);
 	}
 }
 // todo pridat vyberanie peniazoch z roznych mien dat kurzy a tak mozno aj cez net to spravit
-// todo spravit GUI
-// ! nastavenie transparentnosti uctu ako volbu a nevypisanie ostatnych veci
+// ! nastavit to ze sa objavi nova vyzva na vyber a vklad penazi pomocou buttonov

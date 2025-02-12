@@ -1,23 +1,58 @@
-import java.util.Scanner;
-import javax.swing.JTextArea;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class User {
   private float balance = 0;
   private JTextArea textArea;
-
-  User(JTextArea textArea) {
+  private boolean isTransparent;
+  private JPanel buttonPanel;
+  private JButton yesButton, noButton;
+ 
+  User(JTextArea textArea, JButton yesButton, JButton noButton, JPanel buttonPanel) {
     this.balance = 0;
     this.textArea = textArea;
+    this.buttonPanel = buttonPanel;
+    this.yesButton = yesButton;
+    this.noButton = noButton;
+    askTransparency();
+  }
 
-    Scanner input = new Scanner(System.in);
+  private void askTransparency() {
     textArea.append("chcete vas ucet nastavit ako transparentny ? y/n" + "\n");
-    String inputString = input.nextLine().trim().toLowerCase();
 
-    if (inputString.equals("y")) {
-      textArea.append("ucet je transparentny" + "\n");
-    } else if (inputString.equals("n")) {
-      textArea.append("ucet nie je transparentny" + "\n");
-    }
+  for (ActionListener al : yesButton.getActionListeners()) {
+      yesButton.removeActionListener(al);
+  }
+  for (ActionListener al : noButton.getActionListeners()) {
+      noButton.removeActionListener(al);
+  }
+    yesButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        isTransparent = true;
+        buttonPanel.remove(yesButton);
+        buttonPanel.remove(noButton);
+        buttonPanel.repaint();
+        textArea.append("ucet je transparentny" + "\n");
+      }
+      });
+
+      noButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          isTransparent = false;
+          buttonPanel.remove(noButton);
+          buttonPanel.remove(yesButton);
+          buttonPanel.repaint();
+          textArea.append("ucet nie je transparentny" + "\n");
+        }
+        });
+
+        buttonPanel.removeAll(); 
+        buttonPanel.add(yesButton);
+        buttonPanel.add(noButton);
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
   }
 
   void deposit(double deposit) {
@@ -35,7 +70,6 @@ public class User {
   }
 
   void balance() {
-    //return "tvoj zostatok na ucte je " + String.format("%.2f", balance + "\n");
     textArea.append("tvoj zostatok na ucte je " + String.format("%.2f", balance) + "\n");
   }
 
@@ -45,9 +79,6 @@ public class User {
 }
 
 /*
- * uzivatel moze vkladat peniaze na ucet
- * vyberat peniaze ak to zostatok dovoli
- * zistit zostatok na ucte
  * uchovavat zoznam vsetkych transakcii pre kazdy ucet napr vklad vyber atd
  */
 // todo buttony pre deposit 5 10 50 100 1000 
