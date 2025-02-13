@@ -55,8 +55,17 @@ public class User {
         buttonPanel.repaint();
   }
 
+  JButton buttonFive = new JButton("5$");
+
+  buttonFive.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(frame, "Tlačidlo bolo stlačené!");
+    }
+});
   void deposit(double deposit) {
     balance += deposit;
+    buttonPanel.add(buttonFive);
     textArea.append("vkladam " + deposit + " eur" + "\n");
   }
 
