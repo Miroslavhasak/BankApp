@@ -11,6 +11,10 @@ public class Main
 	  JButton yesButton = new JButton("Yes");
 	  JButton noButton = new JButton("No");
 	  JButton buttonFive = new JButton("5 €");
+	  JButton buttonTen = new JButton("10 €");
+	  JButton buttonFifty = new JButton("50 €");
+	  JButton buttonHundred = new JButton("100 €");
+	  JButton buttonThousand = new JButton("1000 €");
 
 	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  frame.setSize(1920,1080);
@@ -22,7 +26,12 @@ public class Main
 	  
 	  frame.add(new JScrollPane(textArea));
 	  buttonPanel.add(buttonFive);
-	  User user = new User(textArea, yesButton, noButton, buttonPanel, buttonFive, frame);
+	  buttonPanel.add(buttonTen);
+      buttonPanel.add(buttonFifty);
+      buttonPanel.add(buttonHundred);
+      buttonPanel.add(buttonThousand);
+	  User user = new User(textArea, yesButton, noButton, buttonPanel, buttonFive, 
+	  buttonTen, buttonFifty, buttonHundred, buttonThousand, frame);
 
 	  frame.setVisible(true);
 	}
@@ -31,3 +40,4 @@ public class Main
 // ! nastavit to ze sa objavi nova vyzva na vyber a vklad penazi pomocou buttonov
 // ! upravit rozlozenie nech to nevyzera tak zle
 // todo zmenit float alebo double z depositu na int
+// todo buttony pre deposit 5 10 50 100 1000

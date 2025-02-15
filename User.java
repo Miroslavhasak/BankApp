@@ -6,37 +6,40 @@ public class User {
   private JTextArea textArea;
   private boolean isTransparent;
   private JPanel buttonPanel;
-  private JButton yesButton, noButton, buttonFive;
+  private JButton yesButton, noButton, buttonFive, buttonTen, buttonFifty, buttonHundred, buttonThousand;
   private JFrame frame;
  
-  User(JTextArea textArea, JButton yesButton, JButton noButton, JPanel buttonPanel, JButton buttonFive, JFrame frame) {
+
+  // konstruktor
+  User(JTextArea textArea, JButton yesButton, JButton noButton, JPanel buttonPanel, JButton buttonFive, 
+  JButton buttonTen, JButton buttonFifty, JButton buttonHundred, JButton buttonThousand, JFrame frame) {
     this.balance = 0;
     this.textArea = textArea;
     this.buttonPanel = buttonPanel;
     this.yesButton = yesButton;
     this.noButton = noButton;
     this.buttonFive = buttonFive;
+    this.buttonTen = buttonTen;
+    this.buttonFifty = buttonFifty;
+    this.buttonHundred = buttonHundred;
+    this.buttonThousand = buttonThousand;
     this.frame = frame;
     askTransparency();
-    //setupButtonFive();
   }
 
-  private void askTransparency() {
+
+
+  // prvotne spytanie sa ohladom transparentnosti
+  public void askTransparency() {
     textArea.append("Do you want your account to be transparent ? " + "\n");
 
-  for (ActionListener al : yesButton.getActionListeners()) {
-      yesButton.removeActionListener(al);
-  }
-  for (ActionListener al : noButton.getActionListeners()) {
-      noButton.removeActionListener(al);
-  }
     yesButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         isTransparent = true;
         buttonPanel.remove(yesButton);
         buttonPanel.remove(noButton);
-        buttonPanel.repaint();
+        //buttonPanel.repaint();
         textArea.append("Your account is transparent\n");
         askDeposit();
       }
@@ -48,7 +51,7 @@ public class User {
           isTransparent = false;
           buttonPanel.remove(noButton);
           buttonPanel.remove(yesButton);
-          buttonPanel.repaint();
+          //buttonPanel.repaint();
           textArea.append("Your account is not transparent\n");
           askDeposit();
         }
@@ -61,11 +64,49 @@ public class User {
         buttonPanel.repaint();
   }
 
-private void setupButtonFive() {
+
+
+
+
+
+
+private void depositFive() {
   buttonFive.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
       deposit(5);
+    }
+  });
+}
+private void depositTen() {
+  buttonTen.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      deposit(10);
+    }
+  });
+}
+private void depositFifty() {
+  buttonFifty.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      deposit(50);
+    }
+  });
+}
+private void depositHundred() {
+  buttonHundred.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      deposit(100);
+    }
+  });
+}
+private void depositThousand() {
+  buttonThousand.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      deposit(1000);
     }
   });
 }
@@ -74,7 +115,15 @@ private void setupButtonFive() {
     textArea.append("How much money u want to deposit\n");
     buttonPanel.removeAll();  
     buttonPanel.add(buttonFive);
-    setupButtonFive();  
+    buttonPanel.add(buttonTen);
+    buttonPanel.add(buttonFifty);
+    buttonPanel.add(buttonHundred);
+    buttonPanel.add(buttonThousand);
+    depositFive();
+    depositTen();  
+    depositFifty();
+    depositHundred();
+    depositThousand();
     buttonPanel.revalidate();
     buttonPanel.repaint();
   }
@@ -82,6 +131,10 @@ private void setupButtonFive() {
   void deposit(double deposit) {
     balance += deposit;
     buttonPanel.add(buttonFive);
+    buttonPanel.add(buttonTen);
+    buttonPanel.add(buttonFifty);
+    buttonPanel.add(buttonHundred);
+    buttonPanel.add(buttonThousand);
     textArea.append("Your deposit " + deposit + " € was successful" + "\n");
   }
 
@@ -106,4 +159,4 @@ private void setupButtonFive() {
 /*
  * uchovavat zoznam vsetkych transakcii pre kazdy ucet napr vklad vyber atd
  */
-// todo buttony pre deposit 5 10 50 100 1000 
+ 
