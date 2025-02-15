@@ -6,19 +6,23 @@ public class User {
   private JTextArea textArea;
   private boolean isTransparent;
   private JPanel buttonPanel;
-  private JButton yesButton, noButton;
+  private JButton yesButton, noButton, buttonFive;
+  private JFrame frame;
  
-  User(JTextArea textArea, JButton yesButton, JButton noButton, JPanel buttonPanel) {
+  User(JTextArea textArea, JButton yesButton, JButton noButton, JPanel buttonPanel, JButton buttonFive, JFrame frame) {
     this.balance = 0;
     this.textArea = textArea;
     this.buttonPanel = buttonPanel;
     this.yesButton = yesButton;
     this.noButton = noButton;
+    this.buttonFive = buttonFive;
+    this.frame = frame;
     askTransparency();
+    //setupButtonFive();
   }
 
   private void askTransparency() {
-    textArea.append("chcete vas ucet nastavit ako transparentny ? y/n" + "\n");
+    textArea.append("Do you want your account to be transparent ? " + "\n");
 
   for (ActionListener al : yesButton.getActionListeners()) {
       yesButton.removeActionListener(al);
@@ -33,7 +37,8 @@ public class User {
         buttonPanel.remove(yesButton);
         buttonPanel.remove(noButton);
         buttonPanel.repaint();
-        textArea.append("ucet je transparentny" + "\n");
+        textArea.append("Your account is transparent\n");
+        askDeposit();
       }
       });
 
@@ -44,7 +49,8 @@ public class User {
           buttonPanel.remove(noButton);
           buttonPanel.remove(yesButton);
           buttonPanel.repaint();
-          textArea.append("ucet nie je transparentny" + "\n");
+          textArea.append("Your account is not transparent\n");
+          askDeposit();
         }
         });
 
@@ -55,18 +61,28 @@ public class User {
         buttonPanel.repaint();
   }
 
-  JButton buttonFive = new JButton("5$");
-
+private void setupButtonFive() {
   buttonFive.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(frame, "Tlačidlo bolo stlačené!");
+      deposit(5);
     }
-});
+  });
+}
+  
+  void askDeposit() {
+    textArea.append("How much money u want to deposit\n");
+    buttonPanel.removeAll();  
+    buttonPanel.add(buttonFive);
+    setupButtonFive();  
+    buttonPanel.revalidate();
+    buttonPanel.repaint();
+  }
+
   void deposit(double deposit) {
     balance += deposit;
     buttonPanel.add(buttonFive);
-    textArea.append("vkladam " + deposit + " eur" + "\n");
+    textArea.append("Your deposit " + deposit + " € was successful" + "\n");
   }
 
   void withdraw(double withdraw) {
@@ -75,7 +91,7 @@ public class User {
     }
 
     balance -= withdraw;
-    textArea.append("vyberam " + withdraw + " eur" + "\n");
+    textArea.append("vyberam " + withdraw + " €" + "\n");
   }
 
   void balance() {

@@ -10,7 +10,7 @@ public class Main
 	  JPanel buttonPanel = new JPanel();
 	  JButton yesButton = new JButton("Yes");
 	  JButton noButton = new JButton("No");
-	  JButton buttonFive = new Jbutton("5$");
+	  JButton buttonFive = new JButton("5 €");
 
 	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  frame.setSize(1920,1080);
@@ -21,8 +21,8 @@ public class Main
 	  textArea.setEditable(false);
 	  
 	  frame.add(new JScrollPane(textArea));
-
-	  User user = new User(textArea, yesButton, noButton, buttonPanel);
+	  buttonPanel.add(buttonFive);
+	  User user = new User(textArea, yesButton, noButton, buttonPanel, buttonFive, frame);
 
 	  frame.setVisible(true);
 	}
@@ -30,5 +30,4 @@ public class Main
 // todo pridat vyberanie peniazoch z roznych mien dat kurzy a tak mozno aj cez net to spravit
 // ! nastavit to ze sa objavi nova vyzva na vyber a vklad penazi pomocou buttonov
 // ! upravit rozlozenie nech to nevyzera tak zle
-
-// todo button pre 5 eur
+// todo zmenit float alebo double z depositu na int
