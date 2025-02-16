@@ -3,7 +3,6 @@ import javax.swing.*;
 public class Main
 {
 	public static void main(String[] args) {
-
 	  JFrame frame = new JFrame("Miro Bank");
 	  JTextArea textArea = new JTextArea(10,30);
 	  JScrollPane scrollPane = new JScrollPane(textArea);
@@ -15,6 +14,10 @@ public class Main
 	  JButton buttonFifty = new JButton("50 €");
 	  JButton buttonHundred = new JButton("100 €");
 	  JButton buttonThousand = new JButton("1000 €");
+	  JButton buttonDeposit = new JButton("Deposit");
+	  JButton buttonWithdraw = new JButton("Withdraw");
+
+	  BankAccount myAccount = new BankAccount(buttonPanel, textArea, buttonFive, buttonTen, buttonFifty, buttonHundred, buttonThousand, buttonDeposit, buttonWithdraw);
 
 	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  frame.setSize(1920,1080);
@@ -25,19 +28,18 @@ public class Main
 	  textArea.setEditable(false);
 	  
 	  frame.add(new JScrollPane(textArea));
+	  
 	  buttonPanel.add(buttonFive);
 	  buttonPanel.add(buttonTen);
       buttonPanel.add(buttonFifty);
       buttonPanel.add(buttonHundred);
       buttonPanel.add(buttonThousand);
-	  User user = new User(textArea, yesButton, noButton, buttonPanel, buttonFive, 
-	  buttonTen, buttonFifty, buttonHundred, buttonThousand, frame);
-
+	  
+	  User user = new User(textArea, yesButton, noButton, buttonPanel, frame, myAccount);
 	  frame.setVisible(true);
 	}
 }
 // todo pridat vyberanie peniazoch z roznych mien dat kurzy a tak mozno aj cez net to spravit
 // ! nastavit to ze sa objavi nova vyzva na vyber a vklad penazi pomocou buttonov
 // ! upravit rozlozenie nech to nevyzera tak zle
-// todo zmenit float alebo double z depositu na int
-// todo buttony pre deposit 5 10 50 100 1000
+// todo dat mu na vyber ci chce vyberat alebo vkladat
